@@ -1,0 +1,14 @@
+server:
+  port: 8080
+spring:
+  datasource:
+    username: root
+    password: CJW3117132432
+    url: jdbc:mysql://localhost:3306/study?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  redis:
+    host: 192.168.56.1
+    port: 6379
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
