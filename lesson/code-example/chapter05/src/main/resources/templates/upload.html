@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>文件上传界面</title>
+    <link rel="stylesheet" th:href="@{/login/css/bootstrap.min.css}">
+</head>
+<body class="text-center">
+<h3 class="panel-title">文件上传示例</h3>
+<div th:if="${uploadStatus}==1">
+    <a style="color: red" th:href="@{/toDownload}">上传成功，请去下载</a>
+</div>
+<div th:unless="${uploadStatus}==1">
+    <span style="color: red">[[${uploadStatus}]]</span>
+</div>
+<form class="form-signin col-md-3 " th:action="@{/uploadFile}" method="post" enctype="multipart/form-data">
+    <input class="form-control" type="file" name="fileUpload" th:placeholder="选择文件"/>
+    <input class="form-control" type="file" name="fileUpload" th:placeholder="选择文件"/>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">上传文件</button>
+</form>
+
+</body>
+</html>

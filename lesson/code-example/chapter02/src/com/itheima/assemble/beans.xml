@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
+    <!-- 将指定类配置给Spring，让Spring创建其对象的实例 -->
+    <bean id="userDao" class="com.itheima.assemble.UserDaoImpl"/>
+    <!--使用属性设值注入方式添加一个id为userService的Bean实例 -->
+    <bean id="userService" class="com.itheima.assemble.UserServiceImpl">
+        <!-- 将id为userDao的Bean实例注入到userService实例中 -->
+        <property name="userDao" ref="userDao"/>
+    </bean>
+    <!--使用属性设值注入方式添加一个id为userController1的Bean实例 -->
+    <bean id="userController1" class="com.itheima.assemble.UserController">
+        <!-- 将id为userService的Bean实例注入到userController实例中 -->
+        <property name="userService" ref="userService"/>
+    </bean>
+
+    <!--使用属性构造注入方式添加一个id为userController2的Bean实例 -->
+    <bean id="userController2" class="com.itheima.assemble.UserController">
+        <!-- 将id为userService的Bean实例注入到userController实例中 -->
+        <constructor-arg index="0" ref="userService"/>
+    </bean>
+</beans>

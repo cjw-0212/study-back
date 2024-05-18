@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>文件下载界面</title>
+    <link rel="stylesheet" th:href="@{/login/css/bootstrap.min.css}">
+</head>
+<body class="text-center">
+<h3 class="panel-title">文件下载示例</h3>
+<table class="table table-bordered table-hover">
+    <tbody class="text-center">
+    <tr th:each="file,fileStat:${filesList}">
+        <td>
+            <span th:text="${fileStat.count}"></span>
+        </td>
+        <td>
+            <!--file.name相当于调用getName()方法获得文件名称  -->
+            <a th:href="@{downloadFile(filename=${file.name})}">
+                <span th:text="${file.name}"></span>
+            </a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

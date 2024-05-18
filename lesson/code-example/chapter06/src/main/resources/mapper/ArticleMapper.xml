@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace为Mapper接口的类路径-->
+<mapper namespace="com.itheima.mapper.ArticleMapper">
+    <!--结果集映射-->
+    <resultMap id="articleWithComment" type="Article">
+        <id property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="content" column="content"/>
+        <collection property="commentList" ofType="Comment">
+            <id property="id" column="c_id"/>
+            <result property="content" column="c_content"/>
+            <result property="uId" column="c_uid"/>
+            <result property="aId" column="c_aid"/>
+        </collection>
+    </resultMap>
+
+    <!-- 1、对应“public Article findArticleById(Integer id)” -->
+    <select id="findArticleById" resultMap="articleWithComment">
+        SELECT a.*, c.id c_id, c.content c_content, c.u_id c_uid, c.a_id c_aid
+        FROM t_article a
+        LEFT JOIN t_comment c ON a.id = c.a_id
+        WHERE a.id = #{id}
+    </select>
+
+    <!-- 2、对应“public List<Article> findArticlesByIds(List<Integer> ids)” -->
+    <select id="findArticlesByIds" parameterType="List" resultMap="articleWithComment">
+        SELECT a.*, c.id c_id, c.content c_content, c.u_id c_uid, c.a_id c_aid
+        FROM t_article a
+        LEFT JOIN t_comment c ON a.id = c.a_id
+        WHERE a.id in
+        <foreach item="id" index="index" collection="list" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
+
+    <!-- 3、对应“public List<Article> findArticlesByLikeTitle(String liketitle)” -->
+    <select id="findArticlesByLikeTitle" resultMap="articleWithComment">
+        <bind name="pattern" value="'%'+ _parameter+ '%'"/>
+        SELECT a.*, c.id c_id, c.content c_content, c.u_id c_uid, c.a_id c_aid
+        FROM t_article a
+        LEFT JOIN t_comment c ON a.id = c.a_id
+        WHERE a.title LIKE #{pattern}
+    </select>
+    <!-- 3、对应“public List<Article> findArticlesByLikeTitle1(String liketitle)” -->
+    <select id="findArticlesByLikeTitle1" resultMap="articleWithComment">
+        SELECT a.*, c.id c_id, c.content c_content, c.u_id c_uid, c.a_id c_aid
+        FROM t_article a
+        LEFT JOIN t_comment c ON a.id = c.a_id
+        WHERE a.title LIKE concat('%', #{value}, '%')
+    </select>
+
+    <!-- 4、对应“public int insertArticle(Article article)” -->
+    <insert id="insertArticle" parameterType="Article">
+        insert into t_article (title, content)
+        values (#{title}, #{content})
+    </insert>
+
+    <!-- 5、对应“public int updateArticle(Article article)” -->
+    <update id="updateArticle" parameterType="Article">
+        UPDATE t_article
+        <set>
+            <if test="title !=null and title !=''">
+                title=#{title},
+            </if>
+            <if test="content !=null and content !=''">
+                content=#{content}
+            </if>
+        </set>
+        WHERE id=#{id}
+    </update>
+
+    <!-- 6、对应“public int deleteArticle(Integer id)” -->
+    <delete id="deleteArticle" parameterType="Integer">
+        DELETE a, c
+        FROM t_article a
+        LEFT JOIN t_comment c ON a.id = c.a_id
+        WHERE a.id = #{id}
+    </delete>
+
+</mapper>
+

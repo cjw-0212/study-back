@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,shrink-to-fit=no">
+    <title>用户注册界面</title>
+    <link th:href="@{/login/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/login/css/signin.css}" rel="stylesheet">
+</head>
+<body class="text-center">
+<style type="text/css">
+    .warn {
+        color: red
+    }
+</style>
+<!--  用户注册form表单 -->
+<form class="form-signin" th:action="@{/checkUser}" th:object="${user}" method="post">
+    <img class="mb-4" th:src="@{/login/img/login.jpg}" width="72" height="72">
+    <h1 class="h3 mb-3 font-weight-normal" th:text="请注册">欢迎注册</h1>
+    <input type="text" th:field="*{username}" class="form-control" th:errorclass="warn"
+           th:placeholder="用户名" required="" autofocus="">
+    <span class="warn" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">用户名错误</span>
+    <input type="password" th:field="*{password}" class="form-control" th:errorclass="warn"
+           th:placeholder="密码" required="">
+    <span class="warn" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">密码错误</span>
+    <input type="password" th:field="*{matchingpwd}" class="form-control" th:errorclass="warn"
+           th:placeholder="确认密码" required="">
+    <span class="warn" th:if="${#fields.hasErrors('${user}')}" th:errors="${user}">确认密码错误</span>
+    <input type="text" th:field="*{phone}" class="form-control" th:errorclass="warn"
+           th:placeholder="手机号码" required="">
+    <span class="warn" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}">手机号码错误</span>
+    <button class="btn btn-lg btn-primary btn-block" type="submit" th:text="注册">注册</button>
+    <div th:replace="~{footer::footer(${currentYear},${institute})}"></div>
+</form>
+
+</body>
+</html>

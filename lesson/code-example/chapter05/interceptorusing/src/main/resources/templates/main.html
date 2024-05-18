@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1,shrink-to-fit=no">
+    <title>系统主页</title>
+    <link th:href="@{/login/css/bootstrap.min.css}" rel="stylesheet">
+</head>
+<body class="text-center">
+当前用户：[[${session.user.username}]]
+<a th:href="@{/logout}">退出</a>
+</body>
+</html>

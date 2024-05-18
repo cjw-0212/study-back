@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<div class="footer mt-5 mb-3" th:fragment="footer(currentYear,institute)">
+    <p>©<span>[[${currentYear}]]</span>-<span th:text="${currentYear}+1">2019</span></p>
+    <p>制作单位：<span th:text="${institute}">清华大学</span></p>
+</div>
+</body>
+</html>

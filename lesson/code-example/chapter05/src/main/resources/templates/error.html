@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>异常统一显示界面</title>
+</head>
+<body>
+<div th:text="'HTTP状态码：'+${status}"></div>
+<div th:text="${#dates.format(timestamp,'yyyy-MM-dd HH:mm:ss')}"></div>
+<div th:text="${message}"></div>
+<div th:text="${error}"></div>
+<div th:text="${path}"></div>
+</body>
+</html>
