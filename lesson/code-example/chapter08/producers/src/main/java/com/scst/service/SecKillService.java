@@ -65,7 +65,7 @@ public class SecKillService {
     //生成订单
     private Order createOrder(String productId, String userId) {
         //获取操作redis hash类型的操作类
-        BoundHashOperations<String, Object, Object> hashOperations = redisTemplate.boundHashOps(SEC_KILL_GOODS_KEY);
+        BoundHashOperations hashOperations = redisTemplate.boundHashOps(SEC_KILL_GOODS_KEY);
         //从Redis获得秒杀商品信息
         Integer amount = (Integer) hashOperations.get(productId);
         if (amount == null || amount <= 0) {
