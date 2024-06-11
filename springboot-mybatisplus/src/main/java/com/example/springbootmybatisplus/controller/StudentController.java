@@ -1,18 +1,19 @@
 package com.example.springbootmybatisplus.controller;
 
 
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * <p>
- * 学生 前端控制器
+ * 学生表 前端控制器
  * </p>
  *
  * @author CJW
- * @since 2023-03-27
+ * @since 2024-06-12
  */
-@Controller
+@RestController
 @RequestMapping("/student")
 public class StudentController {
 
