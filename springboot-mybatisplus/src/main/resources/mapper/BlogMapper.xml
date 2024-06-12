@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.springbootmybatisplus.mapper.BlogMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.example.springbootmybatisplus.po.Blog">
+        <id column="blog_id" property="blogId"/>
+        <result column="blog_title" property="blogTitle"/>
+        <result column="author_id" property="authorId"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        blog_id, blog_title, author_id
+    </sql>
+
+    <resultMap id="BlogVOResultMap" type="BlogVO">
+        <id column="blog_id" property="blogId"/>
+        <result column="blog_title" property="blogTitle"/>
+        <association property="author" resultMap="AuthorResultMap"/>
+    </resultMap>
+
+    <resultMap id="AuthorResultMap" type="Author">
+        <id column="author_id" property="authorId"/>
+        <result column="author_username" property="authorUsername"/>
+        <result column="author_password" property="authorPassword"/>
+        <result column="author_email" property="authorEmail"/>
+        <result column="author_bio" property="authorBio"/>
+        <result column="author_favourite_section" property="authorFavouriteSection"/>
+    </resultMap>
+
+    <select id="selectBlogVO" resultMap="BlogVOResultMap">
+        select b.blog_id,
+               b.blog_title,
+               a.author_id,
+               a.author_username,
+               a.author_password,
+               a.author_bio,
+               a.author_favourite_section,
+               a.author_email
+        from blog b
+                 join author a on b.author_id = a.author_id
+        where b.blog_id=#{blogId}
+    </select>
+</mapper>

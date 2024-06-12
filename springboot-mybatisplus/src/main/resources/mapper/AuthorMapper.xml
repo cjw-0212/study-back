@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.springbootmybatisplus.mapper.AuthorMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.example.springbootmybatisplus.po.Author">
+        <id column="author_id" property="authorId" />
+        <result column="author_username" property="authorUsername" />
+        <result column="author_password" property="authorPassword" />
+        <result column="author_email" property="authorEmail" />
+        <result column="author_bio" property="authorBio" />
+        <result column="author_favourite_section" property="authorFavouriteSection" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        author_id, author_username, author_password, author_email, author_bio, author_favourite_section
+    </sql>
+
+</mapper>

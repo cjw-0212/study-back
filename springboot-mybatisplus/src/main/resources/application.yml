@@ -10,3 +10,4 @@ mybatis-plus:
       id-type: assign_id
       logic-delete-value: 1
       logic-not-delete-value: 0
+  type-aliases-package: com.example.springbootmybatisplus.po,com.example.springbootmybatisplus.vo
