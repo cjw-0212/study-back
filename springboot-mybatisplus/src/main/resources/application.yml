@@ -11,3 +11,5 @@ mybatis-plus:
       logic-delete-value: 1
       logic-not-delete-value: 0
   type-aliases-package: com.example.springbootmybatisplus.po,com.example.springbootmybatisplus.vo
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

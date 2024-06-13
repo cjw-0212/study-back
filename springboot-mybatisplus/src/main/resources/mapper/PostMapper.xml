@@ -4,12 +4,12 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.example.springbootmybatisplus.po.Post">
-        <id column="post_id" property="postId" />
-        <result column="post_subject" property="postSubject" />
-        <result column="author_id" property="authorId" />
-        <result column="draft_status" property="draftStatus" />
-        <result column="post_content" property="postContent" />
-        <result column="blog_id" property="blogId" />
+        <id column="post_id" property="postId"/>
+        <result column="post_subject" property="postSubject"/>
+        <result column="author_id" property="authorId"/>
+        <result column="draft_status" property="draftStatus"/>
+        <result column="post_content" property="postContent"/>
+        <result column="blog_id" property="blogId"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
@@ -17,4 +17,77 @@
         post_id, post_subject, author_id, draft_status, post_content, blog_id
     </sql>
 
+    <!--<select id="getByObject" resultType="com.example.springbootmybatisplus.po.Post">
+        select
+        <include refid="Base_Column_List"/>
+        from post
+        where author_id=#{authorId}
+        <if test="postContent!=null">
+            and post_content like #{postContent}
+        </if>
+    </select>-->
+
+    <!-- <select id="getByObject" resultType="com.example.springbootmybatisplus.po.Post">
+         select
+         <include refid="Base_Column_List"/>
+         from post
+         where author_id=#{authorId}
+         <choose>
+             <when test="postContent!=null">
+                 and post_content like #{postContent}
+             </when>
+             <when test="postSubject!=null">
+                 and post_subject like #{postSubject}
+             </when>
+             <otherwise>
+                 and blog_id=1
+             </otherwise>
+         </choose>
+     </select>-->
+
+    <select id="getByObject" resultType="com.example.springbootmybatisplus.po.Post">
+        select
+        <include refid="Base_Column_List"/>
+        from post
+        <where>
+            <if test="postId!=null">
+                post_id=#{postId}
+            </if>
+            <if test="postContent!=null">
+                and post_content like #{postContent}
+            </if>
+        </where>
+    </select>
+
+   <!-- <update id="updateByObject">
+        update post
+        <set>
+            <if test="postContent!=null">
+                post_content=#{postContent},
+            </if>
+            <if test="postSubject!=null">
+                post_subject=#{postSubject},
+            </if>
+            <if test="draftStatus!=null">
+                draft_status=#{draftStatus}
+            </if>
+        </set>
+        where post_id=#{postId}
+    </update>-->
+
+    <update id="updateByObject">
+        update post
+        <trim prefix="set" suffixOverrides=",">
+            <if test="postContent!=null">
+                post_content=#{postContent},
+            </if>
+            <if test="postSubject!=null">
+                post_subject=#{postSubject},
+            </if>
+            <if test="draftStatus!=null">
+                draft_status=#{draftStatus}
+            </if>
+        </trim>
+        where post_id=#{postId}
+    </update>
 </mapper>

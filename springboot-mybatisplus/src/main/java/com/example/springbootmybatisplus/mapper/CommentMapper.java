@@ -3,6 +3,9 @@ package com.example.springbootmybatisplus.mapper;
 import com.example.springbootmybatisplus.po.Comment;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * <p>
@@ -14,5 +17,5 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface CommentMapper extends BaseMapper<Comment> {
-
+    List<Comment> getByIdList(@Param("idList") List<Integer> idList);
 }

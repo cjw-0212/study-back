@@ -4,14 +4,23 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.example.springbootmybatisplus.po.Comment">
-        <id column="comment_id" property="commentId" />
-        <result column="comment_content" property="commentContent" />
-        <result column="post_id" property="postId" />
+        <id column="comment_id" property="commentId"/>
+        <result column="comment_content" property="commentContent"/>
+        <result column="post_id" property="postId"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
         comment_id, comment_content, post_id
     </sql>
+    <select id="getByIdList" resultType="com.example.springbootmybatisplus.po.Comment">
+        select
+        <include refid="Base_Column_List"/>
+        from comment
+        where comment_id in
+        <foreach collection="idList" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
 
 </mapper>
