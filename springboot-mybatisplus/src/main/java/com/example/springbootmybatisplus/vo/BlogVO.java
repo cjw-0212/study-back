@@ -1,7 +1,10 @@
 package com.example.springbootmybatisplus.vo;
 
 import com.example.springbootmybatisplus.po.Author;
+import com.example.springbootmybatisplus.po.Post;
 import lombok.Data;
+
+import java.util.List;
 
 /**
  * @author CJW
@@ -14,4 +17,5 @@ public class BlogVO {
     private String blogTitle;
 
     private Author author;
+    private List<Post> posts;
 }

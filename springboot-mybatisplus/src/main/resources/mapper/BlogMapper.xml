@@ -18,6 +18,7 @@
         <id column="blog_id" property="blogId"/>
         <result column="blog_title" property="blogTitle"/>
         <association property="author" resultMap="AuthorResultMap"/>
+        <collection property="posts" ofType="Post" resultMap="PostResultMap"/>
     </resultMap>
 
     <resultMap id="AuthorResultMap" type="Author">
@@ -29,6 +30,15 @@
         <result column="author_favourite_section" property="authorFavouriteSection"/>
     </resultMap>
 
+    <resultMap id="PostResultMap" type="Post">
+        <id column="post_id" property="postId"/>
+        <result column="post_subject" property="postSubject"/>
+        <result column="author_id" property="authorId"/>
+        <result column="draft_status" property="draftStatus"/>
+        <result column="post_content" property="postContent"/>
+        <result column="blog_id" property="blogId"/>
+    </resultMap>
+
     <select id="selectBlogVO" resultMap="BlogVOResultMap">
         select b.blog_id,
                b.blog_title,
@@ -37,9 +47,13 @@
                a.author_password,
                a.author_bio,
                a.author_favourite_section,
-               a.author_email
+               a.author_email,
+               p.post_id,
+               p.post_content,
+               p.post_subject
         from blog b
                  join author a on b.author_id = a.author_id
-        where b.blog_id=#{blogId}
+                 join post p on a.author_id = p.author_id
+        where b.blog_id = #{blogId}
     </select>
 </mapper>
