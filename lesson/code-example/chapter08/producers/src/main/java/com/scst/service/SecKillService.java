@@ -44,6 +44,7 @@ public class SecKillService {
             this.destination = topic + ":" + tag;
         }
         //尝试获取分布式锁
+
         RLock lock = redisson.getLock("seckill:" + productId);
         //尝试加锁，最多等待10s，上锁以后30s自动解锁
         boolean res = lock.tryLock(10, 30, TimeUnit.SECONDS);
